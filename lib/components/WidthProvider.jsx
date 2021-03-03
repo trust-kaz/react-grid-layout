@@ -31,9 +31,10 @@ export default function WidthProvider<Config>(
   measureBeforeMount?: boolean,
   className?: string,
   style?: Object,
-  width?: number
+  width?: number,
+  forwardedRef?: React.ForwardedRef<any>
 |}> {
-  return class WidthProvider extends React.Component<
+  class WidthProvider extends React.Component<
     {|
       ...Config,
       measureBeforeMount?: boolean,
@@ -83,14 +84,18 @@ export default function WidthProvider<Config>(
     };
 
     render() {
-      const { measureBeforeMount, ...rest } = this.props;
+      const { measureBeforeMount, forwardedRef, ...rest } = this.props;
       if (measureBeforeMount && !this.mounted) {
         return (
           <div className={this.props.className} style={this.props.style} />
         );
       }
 
-      return <ComposedComponent {...rest} {...this.state} />;
+      return <ComposedComponent {...rest} {...this.state} ref={forwardedRef} />;
     }
-  };
+  }
+
+  return React.forwardRef((props, ref) => {
+    return <WidthProvider {...props} forwardedRef={ref} />;
+  });
 }
