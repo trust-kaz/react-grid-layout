@@ -44,6 +44,7 @@ type State = {
   activeDrag: ?LayoutItem,
   layout: Layout,
   mounted: boolean,
+  cols?: Number,
   oldDragItem: ?LayoutItem,
   oldLayout: ?Layout,
   oldResizeItem: ?LayoutItem,
@@ -130,7 +131,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     oldLayout: null,
     oldResizeItem: null,
     droppingDOMNode: null,
-    children: []
+    children: [],
+    cols: null
   };
 
   dragEnterCounter = 0;
@@ -165,7 +167,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     // Allow parent to set layout directly.
     if (
       !isEqual(nextProps.layout, prevState.propsLayout) ||
-      nextProps.compactType !== prevState.compactType
+      nextProps.compactType !== prevState.compactType ||
+      nextProps.cols !== prevState.cols
     ) {
       newLayoutBase = nextProps.layout;
     } else if (!childrenEqual(nextProps.children, prevState.children)) {
@@ -190,7 +193,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         // getDerivedStateFromProps instead of componentDidMount (in which we would get extra rerender)
         compactType: nextProps.compactType,
         children: nextProps.children,
-        propsLayout: nextProps.layout
+        propsLayout: nextProps.layout,
+        cols: nextProps.cols
       };
     }
 
