@@ -1,5 +1,5 @@
 {
-  "name": "@explo-tech/react-grid-layout",
+  "name": "@trust-kaz/react-grid-layout",
   "version": "1.2.3",
   "description": "A draggable and resizable grid layout with responsive breakpoints, for React.",
   "main": "index.js",
@@ -11,7 +11,6 @@
     "build-example": "make build-example",
     "view-example": "make view-example",
     "dev": "make dev",
-    "prepublishOnly": "make build",
     "validate": "npm ls",
     "flow": "flow"
   },
